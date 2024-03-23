@@ -1,0 +1,47 @@
+﻿@using JobManagement.UIApp.Data
+@using JobManagement.UIApp.Models
+@page "/joborders"
+@inject JobOrderService JobOrderService
+
+
+<h3>Job Orders</h3>
+
+@if (jobOrders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="job-orders-container">
+        <div class="job-orders-panel">
+            <h4>Open</h4>
+            @foreach (var jobOrder in jobOrders.Where(jo => jo.Status == "Open"))
+            {
+                <p>@jobOrder.JobLocation - @jobOrder.VehicleBrand @jobOrder.VehicleType</p>
+            }
+        </div>
+        <div class="job-orders-panel">
+            <h4>In Progress</h4>
+            @foreach (var jobOrder in jobOrders.Where(jo => jo.Status == "In Progress"))
+            {
+                <p>@jobOrder.JobLocation - @jobOrder.VehicleBrand @jobOrder.VehicleType</p>
+            }
+        </div>
+        <div class="job-orders-panel">
+            <h4>Done</h4>
+            @foreach (var jobOrder in jobOrders.Where(jo => jo.Status == "Done"))
+            {
+                <p>@jobOrder.JobLocation - @jobOrder.VehicleBrand @jobOrder.VehicleType</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private List<JobOrder> jobOrders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobOrders = await JobOrderService.GetJobOrdersAsync();
+    }
+}
