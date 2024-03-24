@@ -1,0 +1,41 @@
+﻿@using JobManagement.UIApp.Models
+
+<div class="container py-1">
+    <h5 class="card-title">Monday 11.03</h5>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <p class="card-text">Deadline: 15:00, 11 Mar</p>
+                </div>
+                <div class="vertical-divider"></div>
+                <div class="card-buttons btn-group">
+                    <button type="button" class="btn btn-success">Start</button>
+                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <p class="card-text mb-0"><strong>Car:</strong> Ford Kuga</p>
+                    <p class="card-text mb-0"><strong>Cost centar:</strong> 5F 10</p>
+                    <p class="card-text mb-0"><strong>Location:</strong> x.12.441d</p>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="card-text mb-0"><strong>Servicer:</strong> John Wick</p>
+                    <p class="card-text mb-0"><strong>Work type:</strong> 1 x Innenpflege Komfort PKW groß</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+     [Parameter]
+     public JobOrder JobOrder { get; set; }
+
+        protected override void OnInitialized()
+        {
+        Console.WriteLine(JobOrder.VehicleBrand + " initialized");
+        }
+}

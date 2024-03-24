@@ -4,8 +4,6 @@
 @inject JobOrderService JobOrderService
 
 
-<h3>Job Orders</h3>
-
 @if (jobOrders == null)
 {
     <p><em>Loading...</em></p>
@@ -32,6 +30,11 @@ else
             @foreach (var jobOrder in jobOrders.Where(jo => jo.Status == "Done"))
             {
                 <p>@jobOrder.JobLocation - @jobOrder.VehicleBrand @jobOrder.VehicleType</p>
+                <NavLink class="nav-link" href="@($"jobdetails/{jobOrder.Id}")">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Job info
+                </NavLink>
+                <JobManagement.UIApp.Pages.Components.JobCard JobOrder="jobOrder" />
+                <JobManagement.UIApp.Pages.Components.JobCard JobOrder="jobOrder" />
             }
         </div>
     </div>

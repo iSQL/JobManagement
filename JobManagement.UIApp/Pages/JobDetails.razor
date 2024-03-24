@@ -1,0 +1,124 @@
+﻿@using JobManagement.UIApp.Models
+@using JobManagement.UIApp.Data
+@page "/jobdetails/{Id}"
+@inject JobOrderService JobOrderService
+
+
+@if (jobOrder == null)
+{
+    <p><em>Loading job order details...</em></p>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="d-flex justify-content-right">
+                <button class="btn btn-primary m-2" @onclick="FinishJob">Finish Job</button>
+                <button class="btn btn-secondary m-2" @onclick="EditJob">Edit Job</button>
+                <button class="btn btn-danger m-2" @onclick="DeleteJob">Delete Job</button>
+            </div>
+            <div class="col-md-8 bg-light">
+                <dl class="row">
+                    <dt class="col-sm-3">Assigned User</dt>
+                    <dd class="col-sm-9">@jobOrder.AssignedUser</dd>
+
+                    <dt class="col-sm-3">Job Location</dt>
+                    <dd class="col-sm-9">@jobOrder.JobLocation</dd>
+
+                    <dt class="col-sm-3">Vehicle Brand</dt>
+                    <dd class="col-sm-9">@jobOrder.VehicleBrand</dd>
+
+                    <dt class="col-sm-3">Vehicle Type</dt>
+                    <dd class="col-sm-9">@jobOrder.VehicleType</dd>
+
+                    <dt class="col-sm-3">Vehicle Color</dt>
+                    <dd class="col-sm-9">@jobOrder.VehicleColor</dd>
+
+                    <dt class="col-sm-3">Mark</dt>
+                    <dd class="col-sm-9">@jobOrder.Mark</dd>
+
+                    <dt class="col-sm-3">VIN</dt>
+                    <dd class="col-sm-9">@jobOrder.VIN</dd>
+
+                    <dt class="col-sm-3">Internal Number</dt>
+                    <dd class="col-sm-9">@jobOrder.InternalNumber</dd>
+
+                    <dt class="col-sm-3">Location</dt>
+                    <dd class="col-sm-9">@jobOrder.Location</dd>
+
+                    <dt class="col-sm-3">Vehicle Mileage</dt>
+                    <dd class="col-sm-9">@jobOrder.VehicleMileage</dd>
+
+                    <dt class="col-sm-3">Available From Date</dt>
+                    <dd class="col-sm-9">@jobOrder.AvailableFromDate.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-3">Deadline</dt>
+                    <dd class="col-sm-9">@jobOrder.Deadline.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-3">Note</dt>
+                    <dd class="col-sm-9">@jobOrder.Note</dd>
+
+                    <dt class="col-sm-3">Order Created</dt>
+                    <dd class="col-sm-9">@jobOrder.OrderCreated.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                    <dt class="col-sm-3">Last Update Date</dt>
+                    <dd class="col-sm-9">@jobOrder.LastUpdateDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                    <dt class="col-sm-3">Status</dt>
+                    <dd class="col-sm-9">@jobOrder.Status</dd>
+
+                    <dt class="col-sm-3">Finished Date</dt>
+                    <dd class="col-sm-9">@jobOrder.FinishedDate?.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-3">Signed Status</dt>
+                    <dd class="col-sm-9">@jobOrder.SignedStatus</dd>
+
+                    <dt class="col-sm-3">Billed Status</dt>
+                    <dd class="col-sm-9">@jobOrder.BilledStatus</dd>
+
+                    <dt class="col-sm-3">Canceled Status</dt>
+                    <dd class="col-sm-9">@jobOrder.CanceledStatus</dd>
+                </dl>
+            </div>
+            
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private JobOrder jobOrder = new JobOrder();
+    private Guid parsedId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Guid.TryParse(Id, out parsedId))
+        {
+            var jobOrders = await JobOrderService.GetJobOrdersAsync();
+            jobOrder = jobOrders.FirstOrDefault(jo => jo.Id == parsedId);
+        }
+        else
+        {
+            // Handle the case where Id is not a valid Guid string
+            // This could be logging, redirecting, or showing an error message
+        }
+
+    }
+
+    // Event handlers for button clicks
+    private void FinishJob()
+    {
+        // Add logic for finishing job (if required)
+    }
+
+    private void EditJob()
+    {
+        // Add logic for editing job (if required)
+    }
+
+    private void DeleteJob()
+    {
+        // Add logic for deleting job (if required)
+    }
+}
